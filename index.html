@@ -76,7 +76,7 @@
         저희의 첫 시작을 축복해 주세요.
       </p>
       <p class="greeting__parents">
-        김정호 · 박미경의 아들 <strong>민준</strong><br>
+        <span class="greeting__deceased">故</span> 김정호 · 박미경의 아들 <strong>민준</strong><br>
         이성훈 · 최윤희의 딸 <strong>서연</strong>
       </p>
     </section>
@@ -136,11 +136,35 @@
       <div class="account__groups" id="accountGroups"></div>
     </section>
 
-    <!-- 다음 단계에서 만들 섹션들
-      ⑦ 방명록
-      ⑧ 참석 여부 (RSVP)
-      ⑨ 연락하기
-    -->
+    <!-- ⑦ 방명록 -->
+    <section class="section guestbook">
+      <h2 class="section__title">방명록</h2>
+      <p class="guestbook__intro">두 사람에게 축하의 말을 남겨주세요</p>
+
+      <form class="guestbook__form" id="guestbookForm">
+        <label class="sr-only" for="gbName">이름</label>
+        <input class="field" id="gbName" name="name" type="text" placeholder="이름" maxlength="20" required>
+
+        <label class="sr-only" for="gbMessage">축하 메시지</label>
+        <textarea class="field" id="gbMessage" name="message" rows="4" placeholder="축하 메시지 (300자 이내)" maxlength="300" required></textarea>
+
+        <div class="guestbook__form-foot">
+          <span class="guestbook__counter" id="gbCounter">0 / 300</span>
+          <button class="primary-button" id="gbSubmit" type="submit">남기기</button>
+        </div>
+      </form>
+
+      <p class="guestbook__status" id="guestbookStatus">방명록을 불러오는 중이에요</p>
+      <ul class="guestbook__list" id="guestbookList"></ul>
+      <button class="text-button" id="guestbookMore" hidden>더 보기</button>
+    </section>
+
+    <!-- ⑨ 연락하기 -->
+    <section class="section contact">
+      <h2 class="section__title">연락하기</h2>
+      <!-- 연락처 목록은 contact.js의 CONTACTS에서 만들어 넣어요 -->
+      <div class="contact__groups" id="contactGroups"></div>
+    </section>
 
   </main>
 
@@ -157,5 +181,8 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+  <!-- Firebase는 import 문법을 쓰기 때문에 type="module"로 불러와요 -->
+  <script type="module" src="js/guestbook.js"></script>
 </body>
 </html>

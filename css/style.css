@@ -121,6 +121,11 @@ body {
   margin-left: 0.3rem;
 }
 
+.greeting__deceased {
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
 /* ===== ③ 예식 일시 · 달력 ===== */
 .schedule__when {
   margin-bottom: 1.8rem;
@@ -429,6 +434,166 @@ body {
   font-size: 0.78rem;
   color: var(--rose);
   cursor: pointer;
+}
+
+/* ===== ⑦ 방명록 ===== */
+.guestbook__intro {
+  font-size: 0.92rem;
+  margin-bottom: 1.6rem;
+}
+
+.guestbook__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+/* 입력칸 공통 */
+.field {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e6dfe4;
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--ink);
+  resize: vertical;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--rose);
+}
+
+.guestbook__form-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.guestbook__counter {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.primary-button {
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--rose);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.primary-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.guestbook__status {
+  margin-top: 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.guestbook__status:empty { display: none; }
+
+.guestbook__list {
+  list-style: none;
+  margin-top: 2rem;
+  text-align: left;
+}
+.guestbook__item {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #efe9ed;
+}
+.guestbook__item:first-child {
+  border-top: 1px solid #efe9ed;
+}
+.guestbook__meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-ui);
+}
+.guestbook__name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.guestbook__date {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.guestbook__message {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  white-space: pre-line;   /* 메시지 안의 줄바꿈을 살려요 */
+}
+#guestbookMore { margin-top: 1.2rem; }
+
+/* 화면에는 안 보이지만 화면 낭독기는 읽어주는 글자 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== ⑨ 연락하기 ===== */
+/* 신랑측 묶음 아래 신부측 묶음: 인원이 달라도 줄이 어긋나지 않아요 */
+.contact__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: left;
+}
+.contact__side {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--rose);
+  font-weight: 700;
+}
+/* 한 줄 = 왼쪽 관계·이름 / 오른쪽 버튼 */
+.contact__person {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-top: 1px solid #efe9ed;
+}
+.contact__who {
+  display: inline-block;
+  width: 3rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.contact__name {
+  font-size: 0.95rem;
+}
+.contact__actions {
+  display: flex;
+  gap: 8px;
+}
+.contact__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 1px solid #e6dfe4;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--rose);
+}
+.contact__btn svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 /* ===== 짧은 알림 (토스트) ===== */

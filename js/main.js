@@ -172,7 +172,7 @@ const VENUE = {
 
 // 카카오 디벨로퍼스에서 발급받은 JavaScript 키
 // (브라우저에 노출되는 키라 공개돼도 괜찮고, 대신 등록한 도메인에서만 동작해요)
-const KAKAO_JS_KEY = "여기에_JavaScript_키를_넣으세요";
+const KAKAO_JS_KEY = "7f0b78a5938209eff3fa1698a6e1ecda";
 
 // ===== 카카오 지도 =====
 function loadKakaoMap() {
@@ -261,7 +261,6 @@ const ACCOUNTS = [
     side: "신랑측",
     list: [
       { who: "신랑", name: "김민준", bank: "하나은행", number: "000-000000-00000" },
-      { who: "아버지", name: "김정호", bank: "국민은행", number: "000000-00-000000" },
       { who: "어머니", name: "박미경", bank: "신한은행", number: "000-000-000000" },
     ],
   },
