@@ -20,6 +20,7 @@ body {
   color: var(--ink);
   font-family: var(--font-main);
   line-height: 1.9;
+  word-break: keep-all;   /* 한글이 단어 중간에서 끊기지 않게 */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -277,8 +278,184 @@ body {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* ===== ⑤ 오시는 길 ===== */
+.location__map {
+  width: 100%;
+  height: 260px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f1eef0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+}
+.location__map-fallback {
+  padding: 0 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.location__venue {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.location__address {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* 밑줄 있는 글자 모양 버튼 */
+.text-button {
+  margin-top: 0.4rem;
+  border: none;
+  background: none;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--rose);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.location__links {
+  display: flex;
+  gap: 8px;
+  margin: 1.6rem 0 2.4rem;
+}
+.map-link {
+  flex: 1;
+  padding: 0.75rem 0;
+  border: 1px solid #e6dfe4;
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* 교통 안내: 왼쪽 항목명, 오른쪽 설명 */
+.location__guide {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  row-gap: 0.9rem;
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.location__guide dt {
+  color: var(--rose);
+  font-weight: 700;
+}
+
+/* ===== ⑥ 마음 전하실 곳 ===== */
+.account__intro {
+  font-size: 0.92rem;
+  margin-bottom: 2rem;
+}
+
+.account__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+/* <details>: 누르면 펼쳐지는 HTML 기본 태그 */
+.account__group {
+  border: 1px solid #e6dfe4;
+  border-radius: 6px;
+  background: #fff;
+}
+.account__group summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  cursor: pointer;
+  list-style: none;                         /* 기본 ▶ 표시 숨김 */
+}
+.account__group summary::-webkit-details-marker { display: none; }
+
+/* 오른쪽 꺾쇠: 펼치면 위로 돌아가요 */
+.account__group summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+.account__group[open] summary::after {
+  transform: rotate(-135deg);
+}
+
+.account__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  border-top: 1px solid #f1ecef;
+  font-family: var(--font-ui);
+}
+.account__who {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.account__name {
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin-left: 0.3rem;
+}
+.account__number {
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+.account__copy {
+  flex-shrink: 0;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--blush);
+  border-radius: 999px;
+  background: none;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--rose);
+  cursor: pointer;
+}
+
+/* ===== 짧은 알림 (토스트) ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 200;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(74, 65, 80, 0.92);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translate(-50%, 10px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* 키보드로 이동할 때 지금 어디에 있는지 보이게 */
-button:focus-visible {
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--rose);
   outline-offset: 2px;
 }

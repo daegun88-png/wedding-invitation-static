@@ -98,9 +98,45 @@
       <p class="gallery__hint">사진을 누르면 크게 볼 수 있어요</p>
     </section>
 
+    <!-- ⑤ 오시는 길 -->
+    <section class="section location">
+      <h2 class="section__title">오시는 길</h2>
+
+      <div class="location__map" id="map">
+        <p class="location__map-fallback">지도를 불러오는 중이에요</p>
+      </div>
+
+      <p class="location__venue">라온 가든홀 2층 플로라홀</p>
+      <p class="location__address" id="venueAddress">서울특별시 강남구 테헤란로 123</p>
+      <button class="text-button" id="copyAddress">주소 복사하기</button>
+
+      <div class="location__links">
+        <a class="map-link" id="kakaoMapLink" target="_blank" rel="noopener">카카오맵으로 보기</a>
+        <a class="map-link" id="naverMapLink" target="_blank" rel="noopener">네이버지도로 보기</a>
+      </div>
+
+      <dl class="location__guide">
+        <dt>지하철</dt>
+        <dd>2호선 강남역 1번 출구에서 도보 5분</dd>
+        <dt>버스</dt>
+        <dd>강남역 정류장 하차 (146, 341, 360)</dd>
+        <dt>주차</dt>
+        <dd>건물 지하 주차장 2시간 무료</dd>
+      </dl>
+    </section>
+
+    <!-- ⑥ 마음 전하실 곳 -->
+    <section class="section account">
+      <h2 class="section__title">마음 전하실 곳</h2>
+      <p class="account__intro">
+        참석이 어려우신 분들을 위해 계좌번호를 함께 적어둡니다.<br>
+        보내주시는 마음 감사히 간직하겠습니다.
+      </p>
+      <!-- 신랑측 / 신부측 목록은 main.js의 ACCOUNTS에서 만들어 넣어요 -->
+      <div class="account__groups" id="accountGroups"></div>
+    </section>
+
     <!-- 다음 단계에서 만들 섹션들
-      ⑤ 오시는 길 (지도)
-      ⑥ 마음 전하실 곳 (계좌)
       ⑦ 방명록
       ⑧ 참석 여부 (RSVP)
       ⑨ 연락하기
@@ -116,6 +152,9 @@
     <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="다음 사진">›</button>
     <p class="lightbox__count" id="lbCount"></p>
   </div>
+
+  <!-- "복사했어요" 같은 짧은 알림 (주소 복사, 나중에 계좌 복사에도 같이 써요) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="js/main.js"></script>
 </body>

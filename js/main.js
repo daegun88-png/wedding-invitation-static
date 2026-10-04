@@ -161,6 +161,159 @@ lightbox.addEventListener("touchend", (e) => {
   showPhoto(moved < 0 ? currentIndex + 1 : currentIndex - 1);
 });
 
+// ===== 예식장 정보 =====
+// 좌표(위도 lat, 경도 lng)는 카카오맵에서 장소를 우클릭 → '좌표 확인' 등으로 찾을 수 있어요.
+const VENUE = {
+  name: "라온 가든홀",
+  address: "서울특별시 강남구 테헤란로 123",
+  lat: 37.4995,
+  lng: 127.0287,
+};
+
+// 카카오 디벨로퍼스에서 발급받은 JavaScript 키
+// (브라우저에 노출되는 키라 공개돼도 괜찮고, 대신 등록한 도메인에서만 동작해요)
+const KAKAO_JS_KEY = "여기에_JavaScript_키를_넣으세요";
+
+// ===== 카카오 지도 =====
+function loadKakaoMap() {
+  const mapBox = document.getElementById("map");
+  const showFallback = () => {
+    mapBox.innerHTML =
+      '<p class="location__map-fallback">지도를 불러오지 못했어요.<br>아래 버튼으로 지도 앱에서 확인해 주세요.</p>';
+  };
+
+  // 지도 SDK 스크립트를 JS에서 직접 불러와요 (키를 한 곳에서 관리하려고)
+  const script = document.createElement("script");
+  script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_JS_KEY}&autoload=false`;
+  script.onerror = showFallback;
+
+  script.onload = () => {
+    // autoload=false로 불러왔으니, 준비가 끝나면 실행할 함수를 넘겨줘요
+    kakao.maps.load(() => {
+      mapBox.innerHTML = "";
+      const position = new kakao.maps.LatLng(VENUE.lat, VENUE.lng);
+
+      const map = new kakao.maps.Map(mapBox, {
+        center: position,
+        level: 3, // 숫자가 작을수록 확대
+      });
+
+      // 청첩장을 스크롤하다 지도에 손가락이 걸려 멈추지 않도록 고정
+      map.setDraggable(false);
+      map.setZoomable(false);
+
+      new kakao.maps.Marker({ map, position });
+    });
+  };
+
+  document.head.appendChild(script);
+}
+
+// ===== 지도 앱 링크 =====
+function setMapLinks() {
+  const { name, lat, lng, address } = VENUE;
+  document.getElementById("kakaoMapLink").href =
+    `https://map.kakao.com/link/map/${encodeURIComponent(name)},${lat},${lng}`;
+  document.getElementById("naverMapLink").href =
+    `https://map.naver.com/p/search/${encodeURIComponent(address)}`;
+}
+
+// ===== 짧은 알림 =====
+let toastTimer;
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2000);
+}
+
+// ===== 복사하기 (주소·계좌 공통) =====
+// 최신 방식(navigator.clipboard)을 먼저 시도하고,
+// 안 되는 환경(오래된 브라우저, 일부 인앱 브라우저)에서는 옛날 방식으로 한 번 더 시도해요.
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.style.position = "fixed";
+    temp.style.opacity = "0";
+    document.body.appendChild(temp);
+    temp.select();
+    const ok = document.execCommand("copy");
+    temp.remove();
+    return ok;
+  }
+}
+
+// ===== 주소 복사 =====
+document.getElementById("copyAddress").addEventListener("click", async () => {
+  const ok = await copyText(VENUE.address);
+  showToast(ok ? "주소를 복사했어요" : "복사하지 못했어요. 주소를 길게 눌러 복사해 주세요");
+});
+
+// ===== 계좌 정보 =====
+// 실제 계좌로 바꿀 땐 저장소 공개 여부를 꼭 다시 확인하세요.
+const ACCOUNTS = [
+  {
+    side: "신랑측",
+    list: [
+      { who: "신랑", name: "김민준", bank: "하나은행", number: "000-000000-00000" },
+      { who: "아버지", name: "김정호", bank: "국민은행", number: "000000-00-000000" },
+      { who: "어머니", name: "박미경", bank: "신한은행", number: "000-000-000000" },
+    ],
+  },
+  {
+    side: "신부측",
+    list: [
+      { who: "신부", name: "이서연", bank: "카카오뱅크", number: "0000-00-0000000" },
+      { who: "아버지", name: "이성훈", bank: "우리은행", number: "0000-000-000000" },
+      { who: "어머니", name: "최윤희", bank: "농협은행", number: "000-0000-0000-00" },
+    ],
+  },
+];
+
+// ===== 계좌 목록 그리기 =====
+function renderAccounts() {
+  const container = document.getElementById("accountGroups");
+
+  ACCOUNTS.forEach((group) => {
+    // <details>는 JS 없이도 누르면 펼쳐지고 접히는 태그예요
+    const details = document.createElement("details");
+    details.className = "account__group";
+
+    const items = group.list
+      .map(
+        (acc) => `
+        <div class="account__item">
+          <div>
+            <span class="account__who">${acc.who}</span>
+            <span class="account__name">${acc.name}</span>
+            <div class="account__number">${acc.bank} ${acc.number}</div>
+          </div>
+          <button class="account__copy" data-copy="${acc.bank} ${acc.number}">복사</button>
+        </div>`
+      )
+      .join("");
+
+    details.innerHTML = `<summary>${group.side}에 마음 전하기</summary>${items}`;
+    container.appendChild(details);
+  });
+
+  // 복사 버튼마다 이벤트를 다는 대신, 부모 한 곳에서 클릭을 받아 처리 (이벤트 위임)
+  container.addEventListener("click", async (e) => {
+    const button = e.target.closest(".account__copy");
+    if (!button) return;
+    const ok = await copyText(button.dataset.copy);
+    showToast(ok ? "계좌번호를 복사했어요" : "복사하지 못했어요. 길게 눌러 복사해 주세요");
+  });
+}
+
 renderCalendar();
 renderDday();
 renderGallery();
+setMapLinks();
+loadKakaoMap();
+renderAccounts();
