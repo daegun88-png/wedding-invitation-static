@@ -147,6 +147,30 @@
       <div class="account__groups" id="accountGroups"></div>
     </section>
 
+    <!-- 축하 꽃 보내기 -->
+    <section class="section flowers">
+      <h2 class="section__title">축하 꽃 보내기</h2>
+      <p class="flowers__intro">꽃을 눌러 두 사람에게 축하를 보내주세요</p>
+
+      <div class="flowers__stage" id="flowerStage">
+        <button class="flowers__button" id="flowerButton" type="button" aria-label="축하 꽃 보내기">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <g filter="url(#watercolor)" transform="translate(60 60)">
+              <ellipse rx="17" ry="28" fill="var(--blush)" transform="translate(0 -22)"/>
+              <ellipse rx="17" ry="28" fill="var(--blush)" transform="rotate(72) translate(0 -22)"/>
+              <ellipse rx="17" ry="28" fill="var(--blush)" transform="rotate(144) translate(0 -22)"/>
+              <ellipse rx="17" ry="28" fill="var(--blush)" transform="rotate(216) translate(0 -22)"/>
+              <ellipse rx="17" ry="28" fill="var(--blush)" transform="rotate(288) translate(0 -22)"/>
+              <circle r="10" fill="var(--rose)"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <!-- aria-live: 숫자가 바뀌면 화면 낭독기가 읽어줘요 -->
+      <p class="flowers__count" id="flowerCount" aria-live="polite">꽃을 불러오는 중이에요</p>
+    </section>
+
     <!-- ⑦ 방명록 -->
     <section class="section guestbook">
       <h2 class="section__title">방명록</h2>
@@ -208,5 +232,6 @@
   <script src="js/share.js"></script>
   <!-- Firebase는 import 문법을 쓰기 때문에 type="module"로 불러와요 -->
   <script type="module" src="js/guestbook.js"></script>
+  <script type="module" src="js/flowers.js"></script>
 </body>
 </html>

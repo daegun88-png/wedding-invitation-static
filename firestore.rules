@@ -21,6 +21,27 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // 축하 꽃: 숫자 하나만 있는 문서. 누구나 읽을 수 있고, 한 번에 1~20씩 '올리기'만 가능
+    match /cheers/flowers {
+      allow read: if true;
+
+      // 처음 한 번: 문서가 없을 때 만들기
+      allow create: if
+        request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count is int
+        && request.resource.data.count >= 1
+        && request.resource.data.count <= 20;
+
+      // 이후: 기존 숫자보다 1~20만큼 커지는 것만 허용 (줄이기, 큰 숫자로 조작 금지)
+      allow update: if
+        request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count is int
+        && request.resource.data.count > resource.data.count
+        && request.resource.data.count <= resource.data.count + 20;
+
+      allow delete: if false;
+    }
+
     // 그 외 모든 경로는 막기
     match /{document=**} {
       allow read, write: if false;
