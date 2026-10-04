@@ -203,6 +203,10 @@ function loadKakaoMap() {
       map.setZoomable(false);
 
       new kakao.maps.Marker({ map, position });
+
+      // ⬇️ 여기 두 줄 추가: 지도 오른쪽에 +/- 버튼
+      const zoomControl = new kakao.maps.ZoomControl();
+      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     });
   };
 
