@@ -89,8 +89,16 @@
       <p class="dday" id="dday"></p>
     </section>
 
+    <!-- ④ 갤러리 -->
+    <section class="section gallery">
+      <h2 class="section__title">갤러리</h2>
+      <!-- 사진 목록은 main.js의 GALLERY 배열에서 만들어 넣어요 -->
+      <div class="gallery__track" id="galleryTrack"></div>
+      <div class="gallery__dots" id="galleryDots"></div>
+      <p class="gallery__hint">사진을 누르면 크게 볼 수 있어요</p>
+    </section>
+
     <!-- 다음 단계에서 만들 섹션들
-      ④ 갤러리
       ⑤ 오시는 길 (지도)
       ⑥ 마음 전하실 곳 (계좌)
       ⑦ 방명록
@@ -99,6 +107,15 @@
     -->
 
   </main>
+
+  <!-- 사진 크게 보기 (평소엔 hidden으로 숨겨져 있어요) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기" hidden>
+    <button class="lightbox__close" id="lbClose" aria-label="닫기">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="이전 사진">‹</button>
+    <img class="lightbox__img" id="lbImage" alt="">
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="다음 사진">›</button>
+    <p class="lightbox__count" id="lbCount"></p>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
