@@ -1,0 +1,176 @@
+/* ===== 색상·글꼴 변수 =====
+   한 곳에서 바꾸면 페이지 전체에 반영돼요. */
+:root {
+  --paper: #fbfaf8;      /* 수채화 종이 배경 */
+  --ink:   #4a4150;      /* 본문 글자 (자두빛 회색) */
+  --muted: #8a8090;      /* 보조 글자 */
+  --blush: #eab7bd;      /* 연분홍 꽃잎 */
+  --rose:  #d68a96;      /* 진분홍 꽃술·강조 */
+  --lilac: #c3b4d8;      /* 라일락 */
+  --sage:  #a9c1a6;      /* 세이지 잎사귀 */
+
+  --font-main: "Gowun Batang", "Nanum Myeongjo", serif;
+  --font-ui:   "Gowun Dodum", "Apple SD Gothic Neo", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #efece9;          /* PC에서 청첩장 바깥 여백 색 */
+  color: var(--ink);
+  font-family: var(--font-main);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 모바일 청첩장은 폭을 휴대폰 크기로 고정해서 가운데 정렬 */
+.invitation {
+  max-width: 430px;
+  margin: 0 auto;
+  background: var(--paper);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== ① 메인 ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.bloom {
+  position: absolute;
+  width: 62%;
+  mix-blend-mode: multiply;   /* 물감이 겹치듯 색이 섞여요 */
+  opacity: 0.85;
+  pointer-events: none;
+}
+.bloom--top    { top: -6%;   left: -14%;  }
+.bloom--bottom { bottom: -4%; right: -12%; transform: rotate(180deg); }
+
+.hero__date,
+.hero__place {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.hero__names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 2.2rem 0;
+  font-size: 2.4rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  line-height: 1.3;
+}
+.hero__and {
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--rose);
+}
+
+/* 페이지 열릴 때 꽃이 번지듯 나타나는 연출 (한 번만) */
+.bloom--top    { animation: bloom 1.8s ease-out both; }
+.bloom--bottom { animation: bloom-flip 1.8s 0.4s ease-out both; }
+
+@keyframes bloom {
+  from { opacity: 0; transform: scale(0.85); filter: blur(6px); }
+  to   { opacity: 0.85; transform: scale(1); filter: blur(0); }
+}
+@keyframes bloom-flip {
+  from { opacity: 0; transform: rotate(180deg) scale(0.85); filter: blur(6px); }
+  to   { opacity: 0.85; transform: rotate(180deg) scale(1); filter: blur(0); }
+}
+
+/* ===== 공통 섹션 ===== */
+.section {
+  padding: 4.5rem 2rem;
+  text-align: center;
+}
+.section__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rose);
+  margin-bottom: 2rem;
+}
+
+/* ===== ② 인사말 ===== */
+.greeting__text {
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+}
+.greeting__parents {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.greeting__parents strong {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-left: 0.3rem;
+}
+
+/* ===== ③ 예식 일시 · 달력 ===== */
+.schedule__when {
+  margin-bottom: 1.8rem;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 0.6rem;
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+.calendar__head { color: var(--muted); font-size: 0.8rem; }
+.calendar__sun  { color: var(--rose); }
+
+.calendar__day {
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  margin: 0 auto;
+}
+/* 예식 날짜에 수채화 동그라미 */
+.calendar__day--wedding {
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+}
+.calendar__day--wedding::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
+  background: var(--rose);
+  opacity: 0.85;
+  filter: url(#watercolor);
+}
+.calendar__day--wedding { isolation: isolate; }
+
+.dday {
+  margin-top: 2rem;
+  font-size: 0.98rem;
+}
+.dday strong {
+  color: var(--rose);
+  font-size: 1.15rem;
+}
+
+/* 움직임 줄이기 설정을 켠 사용자에게는 애니메이션 끄기 */
+@media (prefers-reduced-motion: reduce) {
+  .bloom { animation: none !important; }
+}

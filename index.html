@@ -1,1 +1,105 @@
-<h1>청첩장</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>김민준 ♥ 이서연 결혼합니다</title>
+
+  <!-- 폰트: 고운바탕(본문·제목), 고운돋움(작은 안내 문구) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 수채화 번짐 효과용 SVG 필터 (화면에는 안 보이고, 꽃 그림에 적용돼요) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="watercolor">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="16"/>
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+  </svg>
+
+  <main class="invitation">
+
+    <!-- ① 메인 -->
+    <section class="hero">
+      <svg class="bloom bloom--top" viewBox="0 0 200 200" aria-hidden="true">
+        <g filter="url(#watercolor)">
+          <ellipse cx="60"  cy="120" rx="46" ry="16" fill="var(--sage)" transform="rotate(-35 60 120)"/>
+          <ellipse cx="135" cy="70"  rx="40" ry="13" fill="var(--sage)" transform="rotate(-70 135 70)"/>
+          <g transform="translate(100 100)">
+            <ellipse rx="22" ry="38" fill="var(--blush)" transform="rotate(0)   translate(0 -28)"/>
+            <ellipse rx="22" ry="38" fill="var(--blush)" transform="rotate(72)  translate(0 -28)"/>
+            <ellipse rx="22" ry="38" fill="var(--blush)" transform="rotate(144) translate(0 -28)"/>
+            <ellipse rx="22" ry="38" fill="var(--blush)" transform="rotate(216) translate(0 -28)"/>
+            <ellipse rx="22" ry="38" fill="var(--blush)" transform="rotate(288) translate(0 -28)"/>
+            <circle r="12" fill="var(--rose)"/>
+          </g>
+          <circle cx="40" cy="45" r="14" fill="var(--lilac)"/>
+        </g>
+      </svg>
+
+      <p class="hero__date">2027. 4. 17. 토요일 오후 1시</p>
+      <h1 class="hero__names">
+        <span>김민준</span>
+        <span class="hero__and">그리고</span>
+        <span>이서연</span>
+      </h1>
+      <p class="hero__place">라온 가든홀 2층 플로라홀</p>
+
+      <svg class="bloom bloom--bottom" viewBox="0 0 200 200" aria-hidden="true">
+        <g filter="url(#watercolor)">
+          <ellipse cx="80" cy="90" rx="50" ry="15" fill="var(--sage)" transform="rotate(20 80 90)"/>
+          <g transform="translate(120 120)">
+            <ellipse rx="18" ry="30" fill="var(--lilac)" transform="rotate(0)   translate(0 -22)"/>
+            <ellipse rx="18" ry="30" fill="var(--lilac)" transform="rotate(90)  translate(0 -22)"/>
+            <ellipse rx="18" ry="30" fill="var(--lilac)" transform="rotate(180) translate(0 -22)"/>
+            <ellipse rx="18" ry="30" fill="var(--lilac)" transform="rotate(270) translate(0 -22)"/>
+            <circle r="9" fill="var(--blush)"/>
+          </g>
+          <circle cx="160" cy="50" r="11" fill="var(--blush)"/>
+        </g>
+      </svg>
+    </section>
+
+    <!-- ② 인사말 -->
+    <section class="section greeting">
+      <h2 class="section__title">초대합니다</h2>
+      <p class="greeting__text">
+        봄꽃이 가장 예쁘게 피는 날,<br>
+        서로의 계절이 되어주기로 약속합니다.<br><br>
+        귀한 걸음 하시어<br>
+        저희의 첫 시작을 축복해 주세요.
+      </p>
+      <p class="greeting__parents">
+        김정호 · 박미경의 아들 <strong>민준</strong><br>
+        이성훈 · 최윤희의 딸 <strong>서연</strong>
+      </p>
+    </section>
+
+    <!-- ③ 예식 일시 · D-day -->
+    <section class="section schedule">
+      <h2 class="section__title">예식 일시</h2>
+      <p class="schedule__when">2027년 4월 17일 토요일 오후 1시</p>
+      <div class="calendar" id="calendar" aria-label="2027년 4월 달력"></div>
+      <p class="dday" id="dday"></p>
+    </section>
+
+    <!-- 다음 단계에서 만들 섹션들
+      ④ 갤러리
+      ⑤ 오시는 길 (지도)
+      ⑥ 마음 전하실 곳 (계좌)
+      ⑦ 방명록
+      ⑧ 참석 여부 (RSVP)
+      ⑨ 연락하기
+    -->
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
